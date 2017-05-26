@@ -1,0 +1,1 @@
+{"GameObjects":[{"scenes":[{"name":"Assets/sce.unity","gameObject":[{"name":"6-151231163H9","position":[{"x":"-2.50000","y":"0.62000","z":"0.00000"}],"rotation":[{"x":"0.00000","y":"0.00000","z":"0.00000"}],"scale":[{"x":"0.26127","y":"0.24578","z":"1.00000"}],"body":{"type":"Dynamic","mass":"1.00000"}}]}]}]}

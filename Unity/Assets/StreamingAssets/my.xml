@@ -1,0 +1,26 @@
+<gameObjects>
+  <scenes name="Assets/sce.unity">
+    <gameObjects name="6-151231163H9" asset="6-151231163H9.prefab">
+      <transform>
+        <position>
+          <x>-2.5</x>
+          <y>0.62</y>
+          <z>0</z>
+        </position>
+        <rotation>
+          <x>0</x>
+          <y>0</y>
+          <z>0</z>
+        </rotation>
+        <scale>
+          <x>0.2612661</x>
+          <y>0.2457811</y>
+          <z>1</z>
+        </scale>
+      </transform>
+      <Rigidbody2D type="Dynamic" mass="1.00000">
+        <bodyDef fricion="0.40000" bounciness="0.00000" />
+      </Rigidbody2D>
+    </gameObjects>
+  </scenes>
+</gameObjects>

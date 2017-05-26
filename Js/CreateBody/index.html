@@ -1,0 +1,71 @@
+<html>
+   <head>
+      <title>Create Body</title>
+   </head>
+   <body>
+      <canvas id="canvas" width="800" height="600" style="background-color:#333333;" ></canvas>
+      <script src="lib/Box2dWeb-2.1.a.3.js"></script>
+      <script src="js/Tool.js"></script>
+      <script>
+	        var b2Vec2 = Box2D.Common.Math.b2Vec2
+	        ,b2AABB = Box2D.Collision.b2AABB
+	        ,b2BodyDef = Box2D.Dynamics.b2BodyDef
+	        ,b2Body = Box2D.Dynamics.b2Body
+	        ,b2FixtureDef = Box2D.Dynamics.b2FixtureDef
+	        ,b2Fixture = Box2D.Dynamics.b2Fixture
+	        ,b2World = Box2D.Dynamics.b2World
+	        ,b2MassData = Box2D.Collision.Shapes.b2MassData
+	        ,b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
+	        ,b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
+	        ,b2DebugDraw = Box2D.Dynamics.b2DebugDraw
+	        ,b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
+	        ;
+	        
+	        var world;
+	        var ptm_ratio = 30;
+	        function init(){
+	            function main(){
+	               world = new b2World(new b2Vec2(0, 9.81), true);
+	               
+	               //夹具
+	               var fixtureDef = new b2FixtureDef();
+	               fixtureDef.density = 1;
+	               fixtureDef.restitution = .6;
+	               fixtureDef.friction = .1;
+	               
+	               // 定义矩形地面
+	               var bodyDef = new b2BodyDef(); 
+	               bodyDef.position.Set(400/ptm_ratio, 590/ptm_ratio); // 复用定义刚体
+	               bodyDef.type = b2Body.b2_staticBody;
+	               var polygonShape = new b2PolygonShape();
+	               polygonShape.SetAsBox(400/ptm_ratio, 10/ptm_ratio);
+	               fixtureDef.shape = polygonShape; // 复用夹具
+	               var theFloor = world.CreateBody(bodyDef);
+	               theFloor.CreateFixture(fixtureDef);
+	               
+	                //setup debug draw
+	               var debugDraw = new b2DebugDraw();
+	               debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+	               debugDraw.SetDrawScale(ptm_ratio);
+	               debugDraw.SetFillAlpha(0.5);
+	               debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+	               world.SetDebugDraw(debugDraw);
+	               setInterval(updateWorld, 1000 / 60);
+	               
+	               //测试
+	               var b = new Body();
+	               b.createBody("head",30,30);
+	            }
+	            function updateWorld() {
+	               world.Step(1/ptm_ratio,10,10);
+	               world.ClearForces(); // 清除作用力
+	               world.DrawDebugData();
+	            }
+	            
+	            
+	            main();
+	         }
+	         init();
+      </script>
+   </body>
+</html>
