@@ -1,71 +1,144 @@
 <html>
-   <head>
-      <title>Create Body</title>
-   </head>
-   <body>
-      <canvas id="canvas" width="800" height="600" style="background-color:#333333;" ></canvas>
-      <script src="lib/Box2dWeb-2.1.a.3.js"></script>
-      <script src="js/Tool.js"></script>
-      <script>
-	        var b2Vec2 = Box2D.Common.Math.b2Vec2
-	        ,b2AABB = Box2D.Collision.b2AABB
-	        ,b2BodyDef = Box2D.Dynamics.b2BodyDef
-	        ,b2Body = Box2D.Dynamics.b2Body
-	        ,b2FixtureDef = Box2D.Dynamics.b2FixtureDef
-	        ,b2Fixture = Box2D.Dynamics.b2Fixture
-	        ,b2World = Box2D.Dynamics.b2World
-	        ,b2MassData = Box2D.Collision.Shapes.b2MassData
-	        ,b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
-	        ,b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
-	        ,b2DebugDraw = Box2D.Dynamics.b2DebugDraw
-	        ,b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
-	        ;
-	        
-	        var world;
-	        var ptm_ratio = 30;
-	        function init(){
-	            function main(){
-	               world = new b2World(new b2Vec2(0, 9.81), true);
-	               
-	               //夹具
-	               var fixtureDef = new b2FixtureDef();
-	               fixtureDef.density = 1;
-	               fixtureDef.restitution = .6;
-	               fixtureDef.friction = .1;
-	               
-	               // 定义矩形地面
-	               var bodyDef = new b2BodyDef(); 
-	               bodyDef.position.Set(400/ptm_ratio, 590/ptm_ratio); // 复用定义刚体
-	               bodyDef.type = b2Body.b2_staticBody;
-	               var polygonShape = new b2PolygonShape();
-	               polygonShape.SetAsBox(400/ptm_ratio, 10/ptm_ratio);
-	               fixtureDef.shape = polygonShape; // 复用夹具
-	               var theFloor = world.CreateBody(bodyDef);
-	               theFloor.CreateFixture(fixtureDef);
-	               
-	                //setup debug draw
-	               var debugDraw = new b2DebugDraw();
-	               debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
-	               debugDraw.SetDrawScale(ptm_ratio);
-	               debugDraw.SetFillAlpha(0.5);
-	               debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-	               world.SetDebugDraw(debugDraw);
-	               setInterval(updateWorld, 1000 / 60);
-	               
-	               //测试
-	               var b = new Body();
-	               b.createBody("head",30,30);
-	            }
-	            function updateWorld() {
-	               world.Step(1/ptm_ratio,10,10);
-	               world.ClearForces(); // 清除作用力
-	               world.DrawDebugData();
-	            }
-	            
-	            
-	            main();
-	         }
-	         init();
-      </script>
-   </body>
+
+	<head>
+		<title>Create Body</title>
+	</head>
+
+	<body>
+		<canvas id="canvas" width="1280" height="640" style="background-color:#333333;"></canvas>
+		<script src="lib/Box2dWeb-2.1.a.3.js"></script>
+		<script src="js/Body.js"></script>
+		<script src="js/json.js"></script>
+		<script>
+			var b2Vec2 = Box2D.Common.Math.b2Vec2,
+				b2AABB = Box2D.Collision.b2AABB,
+				b2BodyDef = Box2D.Dynamics.b2BodyDef,
+				b2Body = Box2D.Dynamics.b2Body,
+				b2FixtureDef = Box2D.Dynamics.b2FixtureDef,
+				b2Fixture = Box2D.Dynamics.b2Fixture,
+				b2World = Box2D.Dynamics.b2World,
+				b2MassData = Box2D.Collision.Shapes.b2MassData,
+				b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
+				b2CircleShape = Box2D.Collision.Shapes.b2CircleShape,
+				b2DebugDraw = Box2D.Dynamics.b2DebugDraw,
+				b2MouseJointDef = Box2D.Dynamics.Joints.b2MouseJointDef;
+			//	        var Tags = {}
+			var world;
+			var ptm_ratio = 100;
+
+			function init() {
+				function main() {
+					world = new b2World(new b2Vec2(0, 9.81), true);
+					//夹具
+					//	               var fixtureDef = new b2FixtureDef();
+					//	               fixtureDef.density = 1;
+					//	               fixtureDef.restitution = .6;
+					//	               fixtureDef.friction = .1;
+					// 定义矩形地面
+					//	               var bodyDef = new b2BodyDef(); 
+					//	               bodyDef.position.Set(1240/ 2 / ptm_ratio, 580 / ptm_ratio); // 复用定义刚体
+					//	               bodyDef.type = b2Body.b2_staticBody;
+					//	               var polygonShape = new b2PolygonShape();
+					//	               polygonShape.SetAsBox(1240 / 2 / ptm_ratio, 20 / ptm_ratio);
+					//	               fixtureDef.shape = polygonShape; // 复用夹具
+					//	               var theFloor = world.CreateBody(bodyDef);
+					//	               theFloor.CreateFixture(fixtureDef);
+					//	               
+					//	                //setup debug draw
+					var debugDraw = new b2DebugDraw();
+					debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
+					debugDraw.SetDrawScale(ptm_ratio);
+					debugDraw.SetFillAlpha(0.5);
+					debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+					world.SetDebugDraw(debugDraw);
+					setInterval(updateWorld, 1000 / 60);
+					//测试
+					var b = new Body();
+					b.createBody("head", 30, 30);
+				}
+
+				function updateWorld() {
+					world.Step(1.0 / 60, 10, 10);
+					world.ClearForces(); // 清除作用力
+					world.DrawDebugData();
+				}
+				main();
+			}
+			init();
+			var canvas = document.getElementById("canvas");
+			canvas.addEventListener("mousedown", down);
+			canvas.addEventListener("mousemove", move);
+			canvas.addEventListener("mouseup",up);
+			
+			var mouseJoint;
+
+			function up(e)
+			{
+				if(mouseJoint)
+				{
+					world.DestroyJoint(mouseJoint);
+					mouseJoint = null;
+					selectBody = null;
+				}
+				
+			}
+
+			function down(e) {
+				//	         	console.log("down" + e.x)
+				var b = getBodyAtMouse(false,e.x,e.y);
+				if(b)
+				{
+					var mouseJoinDef = new b2MouseJointDef();
+					mouseJoinDef.bodyA = world.GetGroundBody();
+					mouseJoinDef.bodyB = b;
+					mouseJoinDef.target.Set(e.x/ptm_ratio,e.y/ptm_ratio);
+					mouseJoinDef.collideConnected = true;
+					mouseJoinDef.maxForce = 30000.0 * b.GetMass();
+					mouseJoint = world.CreateJoint(mouseJoinDef);
+					b.SetAwake(true);
+				}
+			}
+
+			function move(e) {
+				console.log("move");
+				var vx = e.offsetX / ptm_ratio;
+				var vy = e.offsetY / ptm_ratio;
+				if(mouseJoint)
+				{
+					mouseJoint.SetTarget(new b2Vec2(vx,vy));
+				}
+			}
+			
+			var vec = null;
+			var selectBody = null;
+			
+			function getBodyCallBack(fixture)
+			{
+				if(fixture.GetBody().GetType() != b2Body.b2_staticBody)
+				{
+					if(fixture.GetShape().TestPoint(fixture.GetBody().GetTransform(),vec))
+					{
+						selectBody = fixture.GetBody();
+						return false;
+					}
+				}
+			}
+			
+			function getBodyAtMouse(includeStatic,vx,vy)
+			{
+				var aabb = new b2AABB();
+				vx = vx / ptm_ratio;
+				vy = vy / ptm_ratio;
+				aabb.lowerBound.Set(vx - 0.001,vy - 0.001);
+				aabb.upperBound.Set(vx + 0.001,vy + 0.001);
+				vec = new b2Vec2(vx,vy);
+				world.QueryAABB(getBodyCallBack,aabb);
+				return selectBody;
+			}
+			
+			
+			
+		</script>
+	</body>
+
 </html>
