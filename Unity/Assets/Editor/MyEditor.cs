@@ -23,12 +23,12 @@ public class Shape{
 	public float friction;
 	public float bounciness;
     public Vector2 pos;
-	public List<Vector2> polygonPath = null;
+	public string polygonPath = null;
 }
 
 [System.Serializable]
 public class Body{
-	public int type;
+	public string type;
     public string name;
     public string tag = null;
 	public float mass;
@@ -51,16 +51,13 @@ public class MyEditor : Editor
     [MenuItem("Export/ExportJS")]
     static void ExportJSON()
     {
-        Dictionary<RigidbodyType2D, int> TYPES = new Dictionary<RigidbodyType2D, int> (){
-            { RigidbodyType2D.Static, 0 } ,{ RigidbodyType2D.Kinematic, 1 },
-        { RigidbodyType2D.Dynamic, 2 }};
-
         string filepath = @"F:/Box2dEditor/Js/CreateBody/js/json.js";//Application.dataPath + @"/StreamingAssets/json.js";
         FileInfo t = new FileInfo(filepath);
 		if(!File.Exists (filepath))
 		{
 			File.Delete(filepath);
 		}
+        int ptmradio = 100;
 		StreamWriter sw = t.CreateText();
 		var box2d = new Box2DScene ();
 		box2d.gravity = new Vector2 (0, -10);
@@ -79,21 +76,21 @@ public class MyEditor : Editor
 						var body = new Body ();
 						body.linearDamping = rig.drag;
 						body.angleDamping = rig.angularDrag;
-						body.type = TYPES[rig.bodyType];
+						body.type = rig.bodyType.ToString();
                         body.name = obj.name;
                         body.tag = obj.tag;
 						body.colliders = new List<Shape> ();
-                        body.pos = obj.transform.position;
+                        body.pos = obj.transform.position * ptmradio;
 
 						var circles = obj.GetComponents<CircleCollider2D> ();
 						if (circles != null) {
 							foreach (var collider in circles) {
 								var shape = new Shape ();
 								shape.shapeType = (int)MyType.CIRCLE;
-								shape.circleRadius = collider.radius;
+								shape.circleRadius = collider.radius * ptmradio;
 								shape.friction = collider.friction;
 								shape.bounciness = collider.bounciness;
-                                shape.pos = collider.transform.position;
+                                shape.pos = collider.transform.position * ptmradio;
 								body.colliders.Add (shape);
 							}
 						}
@@ -103,17 +100,21 @@ public class MyEditor : Editor
 							foreach (var collider in polys) {
 								var shape = new Shape ();
 								shape.shapeType = (int)MyType.POLYGON;
-								shape.polygonPath = new List<Vector2> ();
+								shape.polygonPath = "";
 								for (var i = 0; i < collider.pathCount; i++) {
-                                    Vector2[] line = collider.GetPath(i);
+                                    Vector2[] line = collider.GetPath(i) ;
                                     for (int j = 0; j < line.Length; j++)
                                     {
-									    shape.polygonPath.Add (new Vector2(line[j].x, -line[j].y));
+                                        if(j != 0)
+                                        {
+                                            shape.polygonPath += " ";
+                                        }
+									    shape.polygonPath += line[j].x * ptmradio + " "  + -line[j].y * ptmradio;
                                     }
 								}
 								shape.friction = collider.friction;
 								shape.bounciness = collider.bounciness;
-                                shape.pos = collider.transform.position;
+                                shape.pos = collider.transform.position * ptmradio;
                                 body.colliders.Add (shape);
 							}
 						}
@@ -123,11 +124,11 @@ public class MyEditor : Editor
 							foreach (var collider in boxes) {
 								var shape = new Shape ();
 								shape.shapeType = (int)MyType.RECT;
-								shape.rectWidth = collider.size.x;
-								shape.rectHeight = collider.size.y;
+								shape.rectWidth = collider.size.x * ptmradio;
+								shape.rectHeight = collider.size.y * ptmradio;
 								shape.friction = collider.friction;
 								shape.bounciness = collider.bounciness;
-                                shape.pos = collider.offset;
+                                shape.pos = collider.offset * ptmradio;
                                 body.colliders.Add (shape);
 							}
 						}
@@ -150,24 +151,4 @@ public class MyEditor : Editor
         Debug.Log("success");
 	}
 
-    private static int getType(RigidbodyType2D type)
-    {
-        int iType = 0;
-        switch (type)
-        {
-            case RigidbodyType2D.Static:
-                iType = 0;
-
-                break;
-            case RigidbodyType2D.Kinematic:
-
-                iType = 1;
-                break;
-            case RigidbodyType2D.Dynamic:
-                iType = 2;
-                break;
-        }
-
-        return iType;
-    }
 }
