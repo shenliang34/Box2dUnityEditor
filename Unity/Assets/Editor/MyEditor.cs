@@ -35,6 +35,7 @@ public class Body{
 	public float linearDamping;
 	public float angleDamping;
     public float angle;
+    public bool freezeRotation;
     public Vector2 pos;
 	public List<Shape> colliders = null;
 }
@@ -83,8 +84,10 @@ public class MyEditor : Editor
                         body.tag = obj.tag;
 						body.colliders = new List<Shape> ();
                         body.pos = obj.transform.position * ptmradio;
+                        body.freezeRotation = rig.freezeRotation;
 
-						var circles = obj.GetComponents<CircleCollider2D> ();
+
+                        var circles = obj.GetComponents<CircleCollider2D> ();
 						if (circles != null) {
 							foreach (var collider in circles) {
 								var shape = new Shape ();

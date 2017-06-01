@@ -12,6 +12,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 0.0,
+            "freezeRotation": false,
             "pos": {
                 "x": 580.0,
                 "y": 147.0
@@ -40,6 +41,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 0.0,
+            "freezeRotation": false,
             "pos": {
                 "x": 350.0,
                 "y": 272.0
@@ -68,6 +70,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 30.00000762939453,
+            "freezeRotation": false,
             "pos": {
                 "x": 352.0,
                 "y": 458.0
@@ -96,6 +99,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 0.0,
+            "freezeRotation": true,
             "pos": {
                 "x": 966.0,
                 "y": 448.0
@@ -124,6 +128,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 0.0,
+            "freezeRotation": false,
             "pos": {
                 "x": 1261.800048828125,
                 "y": 321.9000244140625
@@ -152,6 +157,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 0.0,
+            "freezeRotation": false,
             "pos": {
                 "x": 16.0,
                 "y": 322.1999816894531
@@ -180,6 +186,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 0.0,
+            "freezeRotation": false,
             "pos": {
                 "x": 383.0,
                 "y": 140.0
@@ -208,6 +215,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 0.0,
+            "freezeRotation": false,
             "pos": {
                 "x": 640.0,
                 "y": 20.0
@@ -236,6 +244,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 357.2573547363281,
+            "freezeRotation": false,
             "pos": {
                 "x": 535.0,
                 "y": 471.9999694824219
@@ -264,6 +273,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 0.0,
+            "freezeRotation": false,
             "pos": {
                 "x": 640.0,
                 "y": 618.0
@@ -292,6 +302,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 0.0,
+            "freezeRotation": false,
             "pos": {
                 "x": 159.0,
                 "y": 105.99999237060547
@@ -320,6 +331,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 323.22735595703127,
+            "freezeRotation": false,
             "pos": {
                 "x": 140.0,
                 "y": 498.0
@@ -348,6 +360,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 309.7535095214844,
+            "freezeRotation": true,
             "pos": {
                 "x": 1120.0,
                 "y": 224.0
@@ -376,6 +389,7 @@ var data = {
             "linearDamping": 0.0,
             "angleDamping": 0.05000000074505806,
             "angle": 26.63471794128418,
+            "freezeRotation": false,
             "pos": {
                 "x": 729.0,
                 "y": 518.0
