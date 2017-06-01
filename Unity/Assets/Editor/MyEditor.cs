@@ -34,6 +34,7 @@ public class Body{
 	public float mass;
 	public float linearDamping;
 	public float angleDamping;
+    public float angle;
     public Vector2 pos;
 	public List<Shape> colliders = null;
 }
@@ -74,6 +75,7 @@ public class MyEditor : Editor
 					var rig = obj.GetComponent<Rigidbody2D> ();
 					if (obj.transform.parent == null && rig != null) {
 						var body = new Body ();
+                        body.angle = obj.transform.eulerAngles.z;
 						body.linearDamping = rig.drag;
 						body.angleDamping = rig.angularDrag;
 						body.type = rig.bodyType.ToString();
